@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - import_tasks: common-setup-tasks.yml
+
+  - name: Initialize the Kubernetes cluster using kubeadm
+    command: kubeadm init --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers --apiserver-advertise-address="172.16.77.10" --apiserver-cert-extra-sans="172.16.77.10"  --node-name vg-k8s-master --pod-network-cidr=192.168.0.0/16 --service-cidr=192.168.0.0/16
+
+  - name: Setup kubeconfig for vagrant user
+    command: "{{ item }}"
+    with_items:
+     - mkdir -p /home/vagrant/.kube
+     - cp -i /etc/kubernetes/admin.conf /home/vagrant/.kube/config
+     - chown vagrant:vagrant /home/vagrant/.kube/config
+
+  - name: Install calico pod network
+    become: false
+    # command: kubectl create -f https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/hosted/calico.yaml
+    command: kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+  
+  - name: Generate join command
+    shell: kubeadm token create --print-join-command > /tmp/join-command
+    # register: join_command
+
+  # - name: Copy join command to local file
+  #   local_action: copy content="{{ join_command.stdout_lines[0] }}" dest="./join-command"
+  - name: Copy join command to local file
+    fetch:
+      src: /tmp/join-command
+      dest: ./
+      flat: yes
+
+  handlers:
+    - name: docker status
+      service: name=docker state=started

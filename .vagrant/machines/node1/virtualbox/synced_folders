@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"/Users/linyang/workspace/my-projects/k8s-vagrant-ansible","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

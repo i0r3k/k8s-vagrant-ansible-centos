@@ -1,6 +1,6 @@
 $num_nodes = 2
 $vm_cpus = 2
-$vm_memory = 4096
+$vm_memory = 8192
 $vm_box = "centos/7"
 $vm_box_version = "1905.1"
 $k8s_version = "1.15.3"
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
 
 		master.vm.provider "virtualbox" do |vb|
 			vb.name = $vm_name_tpl % "master"
-			vb.memory = 4096 #$vm_memory
+			vb.memory = $vm_memory
 			vb.cpus = 2 #$vm_cpus
             vb.gui = false
             vb.linked_clone = true

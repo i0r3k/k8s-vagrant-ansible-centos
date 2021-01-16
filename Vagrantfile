@@ -1,6 +1,6 @@
 $num_nodes = 2
 $vm_cpus = 2
-$vm_memory = 8192
+$vm_memory = 4096
 $vm_box = "centos/7"
 $vm_box_version = "1905.1"
 $k8s_version = "1.15.3"

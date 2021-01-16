@@ -1,1 +1,1 @@
-kubeadm join 172.16.77.10:6443 --token 6ltv6q.e2v1lwlmw1is6sb7     --discovery-token-ca-cert-hash sha256:759120cc8a2143c5e9a0dbd1e34ac3753274adb9cb705a036dc6a8907cb9d326 
+kubeadm join 172.16.77.10:6443 --token nler00.fei1snska15othrb     --discovery-token-ca-cert-hash sha256:29ea39fd24696fa6a82d23b72ce75bfed3f957b406fa242ceaaf831e7241d7aa 
